@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
 
-class AddHashtagComponent extends StatelessWidget {
+class AddHashtagComponent extends StatefulWidget {
   const AddHashtagComponent({Key? key}) : super(key: key);
+
+  @override
+  State<AddHashtagComponent> createState() => _AddHashtagComponentState();
+}
+
+class _AddHashtagComponentState extends State<AddHashtagComponent> {
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   void _modal(BuildContext context) => showModalBottomSheet(
       context: context,
@@ -13,10 +26,12 @@ class AddHashtagComponent extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Text("Hashtag creator",
                       style: Theme.of(context).textTheme.titleLarge)),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: TextField(
-                  decoration: InputDecoration(hintText: "Enter your hashtag"),
+                  controller: _controller,
+                  decoration:
+                      const InputDecoration(hintText: "Enter your hashtag"),
                 ),
               ),
               Padding(
@@ -27,7 +42,15 @@ class AddHashtagComponent extends StatelessWidget {
                     child: Text("Cancel".toUpperCase()),
                   ),
                   TextButton(
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      if (_controller.text.isNotEmpty) {
+                        _controller.clear();
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Empty hashtag")));
+                      }
+                    },
                     child: Text("Add".toUpperCase()),
                   ),
                 ]),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_images/screens/home_screen.dart';
-import 'package:my_images/services/list_hashtag_bloc.dart';
+
+import 'package:my_images/services/list_hashtag/list_hashtag_bloc.dart';
 
 final List<Map<String, dynamic>> listHashtag = [
   {

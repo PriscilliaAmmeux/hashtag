@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_images/models/hashtag_model.dart';
-import 'package:my_images/services/list_hashtag_bloc.dart';
+import 'package:my_images/services/list_hashtag/list_hashtag_bloc.dart';
 
 class ListHashtagView extends StatelessWidget {
-  const ListHashtagView({super.key});
+  const ListHashtagView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ListHashtagBloc, ListHashtagState>(
         builder: (builder, state) {
-      final List<HashtagModel> listHashtag = [];
+      List<HashtagModel> listHashtag = [];
 
       if (state is ListHashtagInitialState) {
         listHashtag = state.listHashtag;
@@ -31,7 +31,7 @@ class ListHashtagView extends StatelessWidget {
                         },
                     background: Container(
                         color: const Color.fromARGB(255, 203, 30, 233)),
-                    child: const Card(
+                    child: Card(
                         child: ListTile(
                       title: Text(
                         listHashtag[index].name,
